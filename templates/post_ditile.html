@@ -1,0 +1,172 @@
+{% extends 'base/base.html' %}
+ 
+ {% block title %}
+    post-ditile
+ {% endblock title %}
+  
+ {% block content %}
+     <div id="preloader">
+         <div class="jumper">
+             <div></div>
+             <div></div>
+             <div></div>
+         </div>
+     </div>  
+     <!-- ***** Preloader End ***** -->
+ 
+     <!-- Header -->
+     <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="index.html"><h2>YANGILIKLAR <em>SAYTI </em></h2></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link " href="{% url 'myapp:home' %}">Uy
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                {% if request.user.is_authenticated %}
+                <a class="nav-link" href="{% url 'logoutpage' %}">Chiqish</a>
+                {% else %}
+                <a class="nav-link" href="{% url 'loginpage' %}">Kirish</a>
+                {% endif %}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+ 
+     <!-- Page Content -->
+     <!-- Banner Starts Here -->
+     <div class="heading-page header-text">
+       <section class="page-heading">
+         <div class="container">
+           <div class="row">
+             <div class="col-lg-12">
+               <div class="text-content">
+                 <h4>OXIRGI XABARLAR</h4>
+                 <h2>BIZNING ENG SO'NGGI XABARLAR</h2>
+               </div>
+             </div>
+           </div>
+         </div>
+       </section>
+     </div>
+ 
+     <section class="blog-posts grid-system">
+       <div class="container">
+         <div class="row">
+           <div class="col-lg-8">
+             <div class="all-blog-posts">
+               <div class="row">
+                 <div class="col-lg-12">
+                   <div class="blog-post">
+                     <div class="blog-thumb">
+                       <img src="{{ post.image.url }}" alt="">
+                     </div>
+                     <div class="down-content">
+                       <span>Lifestyle</span>
+                       <a href="post-details.html"><h4>{{ post.title }}</h4></a>
+                       <ul class="post-info">
+                         <li><a href="#">{{ post.auther }}</a></li>
+                         <li><a href="#">{{ post.publish }}</a></li>
+                         <li><a href="#">{{ post.message_set.all.count }} Fikir</a></li>
+                       </ul>
+                       <p> {{ post.body|safe}}</p>
+                       <div class="post-options">
+                         <div class="row">
+                           <div class="col-6">
+                             <ul class="post-tags">
+                               <li><i class="fa fa-tags"></i></li>
+                               <li><a href="#">Best Templates</a>,</li>
+                               <li><a href="#">TemplateMo</a></li>
+                             </ul>
+                           </div>
+                           <div class="col-6">
+                             <ul class="post-share">
+                               <li><i class="fa fa-share-alt"></i></li>
+                               <li><a href="#">Facebook</a>,</li>
+                               <li><a href="#"> Twitter</a></li>
+                             </ul>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+                 <!--4 TA FIKR-->
+                 <div class="col-lg-12">
+                   <div class="sidebar-item comments">
+                     <div class="sidebar-heading">
+                       <h2>{{ post.message_set.all.count }}</h2>
+                     </div>
+                     <div class="content">
+                       <ul>
+                         
+                         {% for coment in coments %}
+                          <li>
+                            <div class="right-content">
+                              <h4>{{coment.auther}}<span>{{coment.created}}</span></h4>
+                              <p>{{coment.Mbody}}</p>
+                            </div>
+                          </li>
+                          {% endfor %}
+                        
+  
+                       </ul>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="col-lg-12">
+                   <div class="sidebar-item submit-comment">
+                     <div class="sidebar-heading">
+                       <h2>SIZNING FIKRINGIZ</h2>
+                       <!-- comment post-->
+                     </div>
+                     <div class="content">
+                       <form id="comment" action="" method="POST">
+                        {% csrf_token %}
+                         <div class="row">
+                           <div class="col-md-6 col-sm-12">
+                             
+                             <fieldset>
+                               <!-- <input name="name" type="text" id="name" placeholder="Your name" required=""> -->
+                             </fieldset>
+                           </div>
+                           <div class="col-md-6 col-sm-12">
+                             <fieldset>
+                               <!-- <input name="email" type="text" id="email" placeholder="Your email" required=""> -->
+                             </fieldset>
+                           </div>
+                           <div class="col-md-12 col-sm-12">
+                             <fieldset>
+                               <input name="body" type="text" id="subject" placeholder="SIZNING FIKRINGIZ...">
+                             </fieldset>
+                           </div>
+                           <div class="col-lg-12">
+                             <fieldset>
+                               <!-- <textarea name="message" rows="6" id="message" placeholder="Type your comment" required=""></textarea> -->
+                             </fieldset>
+                           </div>
+                           <div class="col-lg-12">
+                             <fieldset>
+                               <button type="submit" id="form-submit" class="main-button">Submit</button>
+                             </fieldset>
+                           </div>
+                         </div>
+                       </form>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+ 
+ {% endblock content %}
+  

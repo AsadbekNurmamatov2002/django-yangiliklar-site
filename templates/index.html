@@ -1,0 +1,135 @@
+{% extends 'base/base.html' %}
+  
+  {% block title %}
+    Home
+  {% endblock title %}
+    
+  {% block content %}
+      <div id="preloader">
+          <div class="jumper">
+              <div></div>
+              <div></div>
+              <div></div>
+          </div>
+      </div>  
+      <!-- ***** Preloader End ***** -->
+  
+      <!-- Header -->
+      <header class="">
+        <nav class="navbar navbar-expand-lg">
+          <div class="container">
+            <a class="navbar-brand" href="index.html"><h2>YANGILIKLAR <em>SAYTI </em></h2></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                  <a class="nav-link " href="{% url 'myapp:home' %}">Uy
+                    <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  {% if request.user.is_authenticated %}
+                  <a class="nav-link" href="{% url 'logoutpage' %}">Chiqish</a>
+                  {% else %}
+                  <a class="nav-link" href="{% url 'loginpage' %}">Kirish</a>
+                  {% endif %}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+  
+      <!-- Page Content -->
+      <!-- Banner Starts Here -->
+      <div class="main-banner header-text">
+        <div class="container-fluid">
+          <div class="owl-banner owl-carousel">
+            
+            {% for p in post %}
+            <div class="item">
+              <img width=100% height=250px  src="{{ p.image.url }}" alt="">
+              <div class="item-content">
+                <div class="main-content">
+                  <div class="meta-category">
+                    <span>Fashion</span>
+                  </div>
+                  <a href="{{ p.get_absolute_url }}"><h4>{{ p.title }}</h4></a>
+                  <ul class="post-info">
+                    <li><a href="{{ p.get_absolute_url }}">{{ p.auther}}</a></li>
+                    <li><a href="{{ p.get_absolute_url }}">{{ p.publish }}</a></li>
+                    <li><a href="{{ p.get_absolute_url }}">COMENT:{{p.message_set.all.count}}</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            
+          </div>
+        </div>
+      </div>
+  
+  <!-- POSTLAR  -->
+      <section class="blog-posts">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="all-blog-posts">
+                <div class="row">
+                  <!-- 1 -->
+                  {% for p in post %}
+                  <div class="col-lg-12">
+                    <div class="blog-post">
+                      <div class="blog-thumb">
+                        <img src="{{ p.image.url }}" alt="">
+                      </div>
+                      <div class="down-content">
+                        <span></span>
+                        <a href="{{ p.get_absolute_url }}"><h4>{{p.title }}</h4></a>
+                        <ul class="post-info">
+                          <li><a href="{{ p.get_absolute_url }}">{{p.auther}}</a></li>
+                          <li><a href="{{ p.get_absolute_url }}">{{p.publish}}</a></li>
+                          <li><a href="{{ p.get_absolute_url }}">COMENT:{{p.message_set.all.count }}</a></li>
+                        </ul>
+                        <p>{{p.body |safe}}</a>
+                        <div class="post-options">
+                          <div class="row"> 
+                            <div class="col-6">
+                              <ul class="post-tags">
+                                <li><i class="fa fa-tags"></i></li>
+                                <li><a href="{{ request.path }}?q={{p.postname.name}}">{{ p.postname.name}}</a>,</li>
+                                
+                              </ul>
+                            </div>
+                            <div class="col-6">
+                              <ul class="post-share">
+                                <li><i class="fa fa-share-alt"></i></li>
+                                <li><a href="https://github.com/AsadbekNurmamatov2002">GitHab</a>,</li>
+                                
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 2 -->
+                 {% endfor %}
+                  <div class="col-lg-12">
+                    <div class="main-button">
+                      <a href="blog.html">BARCHA XABARLARNI KO'RISH</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END -->
+  <!-- ...................... -->
+          
+  
+      
+   
+  {% endblock content %}
+    
